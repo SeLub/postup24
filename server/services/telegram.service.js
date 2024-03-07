@@ -1,5 +1,6 @@
 const telegrambot = require("node-telegram-bot-api");
 require("dotenv").config();
+const Sentry = require("@sentry/node");
 
 module.exports = {
       name: 'telegram',
@@ -102,12 +103,31 @@ module.exports = {
             }
       },
       actions:{
-            getMe(){
+            getMe(){                  
                   return this.bot.getMe()
             },
             sendPost(ctx){
                   const { text, mediaArray } = ctx.params;
                   const sendJustText = this.isArrayEmpty(mediaArray);
+
+
+                  const transaction = Sentry.startSpan({
+                        op: "test",
+                        name: "My First Test Transaction",
+                      });
+                      
+                      setTimeout(() => {
+                        try {
+                              console.log('!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!')
+                          foo();
+                        } catch (e) {
+                          Sentry.captureException(e);
+                        } finally {
+                          transaction.finish();
+                        }
+                      }, 99);
+
+
                   try {
                         if (sendJustText){
                               this.bot.sendMessage(this.chatId, text, { parse_mode: 'HTML' })

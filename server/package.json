@@ -24,9 +24,11 @@
   "dependencies": {
     "@aws-sdk/client-s3": "^3.515.0",
     "@aws-sdk/s3-request-presigner": "^3.515.0",
+    "@sentry/profiling-node": "^7.105.0",
     "dotenv": "^16.4.1",
     "moleculer": "^0.14.26",
     "moleculer-db": "^0.8.25",
+    "moleculer-sentry": "^2.0.0",
     "moleculer-web": "^0.10.4",
     "nats": "^2.19.0",
     "node-telegram-bot-api": "^0.64.0",
